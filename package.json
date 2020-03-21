@@ -1,0 +1,38 @@
+{
+  "name": "@dippy/jest-mysql",
+  "version": "0.0.1",
+  "description": "User friendly preset configuration for Jest & MySQL setup",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": "Daniel-Yonkov/jest-mysql.git",
+  "keywords": [
+    "jest",
+    "jest preset",
+    "jest mysql",
+    "mysql preset",
+    "mysql jest",
+    "mysql"
+  ],
+  "author": "Daniel Yonkov <daniel.yonkov@gmail.com>",
+  "license": "MIT",
+  "bugs": "https://github.com/Daniel-Yonkov/jest-mysql/issues",
+  "homepage": "https://github.com/Daniel-Yonkov/jest-mysql#readme",
+  "jest": {
+    "preset": "./jest-preset.js"
+  },
+  "dependencies": {
+    "cwd": "^0.10.0",
+    "debug": "^4.1.1"
+  },
+  "peerDependencies": {
+    "jest": "25.x.x",
+    "mysql": "2.x.x"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "jest": "^25.1.0",
+    "mysql": "^2.18.1",
+    "prettier": "^1.19.1"
+  }
+}
