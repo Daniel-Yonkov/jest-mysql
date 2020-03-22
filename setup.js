@@ -8,7 +8,7 @@ const {
     createDatabaseIfNoneExisiting,
     importCreationScript,
     useDatabase
-} = require("./fixtures/databaseSetup");
+} = require("./databaseSetup");
 const defaultOptions = require("./jest-mysql-config");
 
 const globalConfigPath = join(__dirname, "globalConfig.json");

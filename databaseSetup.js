@@ -46,7 +46,7 @@ function useDatabase(databaseName) {
     return new Promise((resolve, reject) => {
         global.db.query(`USE ${databaseName};`, (useError, useResult) => {
             if (useError) {
-                return reject(useError);
+                return reject("Unable to connect to database");
             }
             resolve(useResult);
         });
