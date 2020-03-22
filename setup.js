@@ -1,35 +1,33 @@
-const mysql = require("mysql");
 const fs = require("fs");
 const { resolve, join } = require("path");
+const util = require("util");
+const mysql = require("mysql");
 const cwd = require("cwd");
 const debug = require("debug")("jest-mysql:setup");
-
-const globalConfigPath = join(__dirname, "globalConfig.json");
-let setupHooks = {};
-try {
-    setupHooks = require(resolve(cwd(), "setupHooks"));
-} catch (e) {
-    debug("Unable to load setup hooks");
-}
-
 const {
     createDatabaseIfNoneExisiting,
     importCreationScript,
     useDatabase
 } = require("./fixtures/databaseSetup");
+const defaultOptions = require("./jest-mysql-config");
+
+const globalConfigPath = join(__dirname, "globalConfig.json");
 
 module.exports = async () => {
     const {
         databaseOptions: mysqlConfig,
         createDatabase,
-        dbSchema
+        dbSchema,
+        truncateDatabase
     } = getTestingMysqlDatabaseOptions();
 
     fs.writeFileSync(
         globalConfigPath,
         JSON.stringify({
+            ...defaultOptions,
             databaseOptions: mysqlConfig,
-            dbSchema: dbSchema
+            dbSchema: dbSchema,
+            truncateDatabase
         })
     );
     debug("Stored global config");
@@ -41,17 +39,19 @@ module.exports = async () => {
     debug("Established mysql connection");
 
     if (createDatabase) {
-        debug("Database creations initialization")
+        debug("Database creations initialization");
         await createDatabaseIfNoneExisiting(mysqlConfig.database);
     }
     await useDatabase(database);
-    debug("Connected to database")
+    debug("Connected to database");
 
     debug("Initialization setup database");
     //TODO move guard logic into creation script
     if (dbSchema && fs.existsSync(resolve(cwd(), dbSchema))) {
         await importCreationScript(mysqlConfig, dbSchema);
-        debug("Imported initialization script");
+        debug("Imported database schema");
+    } else {
+        debug("Unable to locate database schema");
     }
     await loadSetupHooks();
 };
@@ -67,20 +67,19 @@ function getTestingMysqlDatabaseOptions() {
 
 async function loadSetupHooks() {
     debug("Checking for user defined setup hooks...");
-    if(Object.keys(setupHooks).length > 0) {
-        for (let action in setupHooks) {
-            if (setupHooks[action] instanceof Promise) {
-                await setupHooks[action]();
-                continue;
+    try {
+        const setupHooks = require(resolve(cwd(), "setupHooks"));
+        if (Object.keys(setupHooks).length > 0) {
+            for (let action in setupHooks) {
+                if (util.types.isAsyncFunction(setupHooks[action])) {
+                    await setupHooks[action]();
+                }
+                debug("Imported setup hooks");
+                return;
             }
-            await new Promise(resolve => {
-                setupHooks[action](() => {
-                    resolve();
-                });
-            });
         }
-        debug("Imported setup hooks");
-        return;
+        debug("No setup hooks provided");
+    } catch (e) {
+        debug("Unable to load setup hooks");
     }
-    debug("No setup hooks provided");
 }
