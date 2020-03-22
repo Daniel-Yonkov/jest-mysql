@@ -3,3 +3,4 @@
 globalConfig.json
 jest-mysql-config.js
 node_modules/
+coverage
