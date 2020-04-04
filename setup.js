@@ -46,21 +46,24 @@ module.exports = async () => {
     debug("Connected to database");
 
     debug("Initialization setup database");
-    //TODO move guard logic into creation script
-    if (dbSchema && fs.existsSync(resolve(cwd(), dbSchema))) {
+
+    if (dbSchema) {
+        if (!fs.existsSync(resolve(cwd(), dbSchema))) {
+            throw new Error(`Unable to find schema location. please check path: \n
+                ${resolve(cwd(), dbSchema)}`);
+        }
         await importCreationScript(mysqlConfig, dbSchema);
-        debug("Imported database schema");
-    } else {
-        debug("Unable to locate database schema");
     }
+    debug("Imported database schema");
     await loadSetupHooks();
 };
+
 //TODO import default supported options and override with the user provided
 function getTestingMysqlDatabaseOptions() {
     try {
         const databaseOptions = require(resolve(cwd(), "jest-mysql-config.js"));
         return databaseOptions;
-    } catch (e) {
+    } catch {
         throw new Error("Unable to find and import testing database config");
     }
 }
@@ -79,7 +82,7 @@ async function loadSetupHooks() {
             }
         }
         debug("No setup hooks provided");
-    } catch (e) {
+    } catch {
         debug("Unable to load setup hooks");
     }
 }

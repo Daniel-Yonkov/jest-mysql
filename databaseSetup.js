@@ -2,11 +2,11 @@ const exec = require("child_process").exec;
 const cwd = require("cwd");
 const debug = require("debug")("jest-mysql:database-setup");
 async function createDatabaseIfNoneExisiting(databaseName) {
-    debug("Checking database exists")
+    debug("Checking database exists");
     const databaseExist = await searchForDatabase(databaseName);
 
     if (databaseExist === false) {
-        debug("Creating database")
+        debug("Creating database");
         await createTestingDatabase(databaseName);
         debug("Databasea created");
         return;
@@ -52,28 +52,24 @@ function useDatabase(databaseName) {
         });
     });
 }
-//TODO rework using asing query helper
-function importCreationScript(mysqlConfig, creationScriptPath = "") {
+
+function importCreationScript(mysqlConfig, creationScriptPath) {
     return new Promise((resolve, reject) => {
-        //mysql login information
+        //mysql login information preparation
         let params = ["mysql", "-h", mysqlConfig.host, "-u", mysqlConfig.user];
         if ("password" in mysqlConfig && mysqlConfig.password.length > 0) {
             params.push(`-p${mysqlConfig.password}`);
         }
-        //we choose the database
+        //sql import to database: database_name < creation_script_path
         params.push(mysqlConfig.database);
-        if (creationScriptPath) {
-            params.push(`< ${creationScriptPath}`);
+        params.push(`< ${creationScriptPath}`);
 
-            exec(params.join(" "), { cwd: cwd() }, (error, stdout, stderr) => {
-                if (error) {
-                    return reject(stderr);
-                }
-                resolve();
-            });
-            return;
-        }
-        resolve();
+        exec(params.join(" "), { cwd: cwd() }, (error, stdout, stderr) => {
+            if (error) {
+                return reject(stderr);
+            }
+            resolve();
+        });
     });
 }
 

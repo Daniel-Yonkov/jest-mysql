@@ -35,7 +35,7 @@ module.exports = async function() {
     debug("Stop initial mysql connection");
     global.db.end(error => {
         if (error) {
-            debug(error);
+            throw error;
         }
         debug("Mysql connection terminated");
     });

@@ -16,7 +16,9 @@ module.exports = class MysqlEnvironment extends NodeEnvironment {
     async setup() {
         debug("Setup Mysql Test Environment");
 
-        const { databaseOptions } = JSON.parse(fs.readFileSync(mysqlConfig, "utf-8"));
+        const { databaseOptions } = JSON.parse(
+            fs.readFileSync(mysqlConfig, "utf-8")
+        );
 
         this.global.db = mysql.createConnection(databaseOptions);
         this.global.db.connect();
@@ -30,9 +32,7 @@ module.exports = class MysqlEnvironment extends NodeEnvironment {
         await new Promise((resolve, reject) => {
             this.global.db.end(error => {
                 if (error) {
-                    debug(error);
-                    reject(error);
-                    return;
+                    return reject(error);
                 }
                 debug("Connection closed");
                 resolve();

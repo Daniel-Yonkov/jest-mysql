@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "User friendly preset configuration for Jest & MySQL setup",
   "scripts": {
-    "test": "jest --forceExit"
+    "test": "jest --detectOpenHandles --forceExit"
   },
   "repository": "Daniel-Yonkov/jest-mysql.git",
   "keywords": [

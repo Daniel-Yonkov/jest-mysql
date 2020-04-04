@@ -24,11 +24,7 @@ it("Should trigger error if database does not exists", async () => {
         `SHOW DATABASES LIKE "${databaseOptions.database}"`
     );
     expect(preSetupResults).toHaveLength(0);
-    try {
-        await globalSetup();
-    } catch (e) {
-        expect(e).toMatch("Unable to connect to database");
-    }
+    expect(globalSetup()).rejects.toThrowError("Unable to connect to database");
 });
 
 afterAll(() => {
