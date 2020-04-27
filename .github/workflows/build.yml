@@ -24,19 +24,17 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-        
-    - name: Shutdown Ubuntu MySQL (SUDO)
-      run: sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
 
-    - name: Set up MySQL
-      uses: mirromutth/mysql-action@v1.1
-      with:
-        character set server: 'utf8mb4'
-        collation server: 'utf8mb4_general_ci'
-        mysql root password: ${{ secrets.jest_mysql_root_mysql_password }}
-      
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - name: "Start MySQL server"
+      run: sudo service mysql start
+    
+    - name: Clean install dependencies and build
+      run: |
+        npm ci
+        npm run build --if-present
+    
+    - name: Run tests
+      run: npm test
+    
       env:
         CI: true
