@@ -1,5 +1,5 @@
 {
-  "name": "@dippy/jest-mysql",
+  "name": "jest-mysql",
   "version": "0.0.2",
   "description": "User friendly preset configuration for Jest & MySQL setup",
   "scripts": {
