@@ -1,6 +1,5 @@
 *.sublime-workspace
 *.sublime-project
 globalConfig.json
-jest-mysql-config.js
 node_modules/
 coverage
