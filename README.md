@@ -4,20 +4,20 @@
 
 ## Resume
 
-- Allows MySQL schema import for testing database before tests are run - See [option definition](#21-option-definitions) 
+- Allows MySQL schema import for testing database before tests are run - See [option definition](#21-option-definitions)
 - Allows custom action hooks after [globalSetup](https://jestjs.io/docs/en/next/configuration#globalsetup-string) - See [Setup Hooks](#4-setup-hooks)
 - Allows database truncation after tests have finished ([globalTeardown](https://jestjs.io/docs/en/next/configuration#globalsetup-string)) - See [option definition](#21-option-definitions)
 
 ## Install
 
 ```bash
-npm install @dippy/jest-mysql --save-dev
+npm install jest-mysql --save-dev
 ```
 
 Or if you use `yarn`
 
 ```bash
-yarn add @dippy/jest-mysql --dev
+yarn add jest-mysql --dev
 ```
 
 Make sure `jest` and `mysql` are installed as well in the project, as they are required as peer dependencies.
@@ -32,7 +32,7 @@ You could choose one of the following methods, for further reference checkout th
 ```js
 {
   "jest": {
-        "preset": "@dippy/jest-mysql",
+        "preset": "jest-mysql",
         //any other jest configurations
     },
     //rest of packange.json configuration
@@ -43,7 +43,7 @@ You could choose one of the following methods, for further reference checkout th
 
 ```js
 module.exports = {
-  preset: "@shelf/jest-mongodb"
+  preset: "jest-mysql"
   //any other configuration
 };
 ```
