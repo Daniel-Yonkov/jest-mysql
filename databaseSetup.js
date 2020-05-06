@@ -1,6 +1,8 @@
 const exec = require("child_process").exec;
 const cwd = require("cwd");
 const debug = require("debug")("jest-mysql:database-setup");
+const { query } = require("./helpers/mysql");
+
 async function createDatabaseIfNoneExisiting(databaseName) {
     debug("Checking database exists");
     const databaseExist = await searchForDatabase(databaseName);
@@ -13,44 +15,19 @@ async function createDatabaseIfNoneExisiting(databaseName) {
     }
     debug("Database exists, omiting creation");
 }
-//TODO rework using asing query helper
-function searchForDatabase(databaseName) {
-    return new Promise((resolve, reject) => {
-        global.db.query(
-            `SHOW DATABASES LIKE "${databaseName}";`,
-            (showError, showResults) => {
-                if (showError) {
-                    return reject(showError);
-                }
-                resolve(showResults.length > 0);
-            }
-        );
-    });
+async function searchForDatabase(databaseName) {
+    const { results } = await query(`SHOW DATABASES LIKE "${databaseName}";`);
+    return results.length > 0;
 }
-//TODO rework using asing query helper
-function createTestingDatabase(databaseName) {
-    return new Promise((resolve, reject) => {
-        global.db.query(
-            `CREATE DATABASE ${databaseName} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`,
-            (creationError, creationResult) => {
-                if (creationError) {
-                    return reject(creationError);
-                }
-                resolve(creationResult);
-            }
-        );
-    });
+async function createTestingDatabase(databaseName) {
+    const { results } = await query(
+        `CREATE DATABASE ${databaseName} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`
+    );
+    return results;
 }
-//TODO rework using asing query helper
-function useDatabase(databaseName) {
-    return new Promise((resolve, reject) => {
-        global.db.query(`USE ${databaseName};`, (useError, useResult) => {
-            if (useError) {
-                return reject("Unable to connect to database");
-            }
-            resolve(useResult);
-        });
-    });
+async function useDatabase(databaseName) {
+    const { results } = await query(`USE ${databaseName};`);
+    return results;
 }
 
 function importCreationScript(mysqlConfig, creationScriptPath) {
