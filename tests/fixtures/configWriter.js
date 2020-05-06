@@ -9,11 +9,7 @@ async function writeConfig(file, filename = "jest-mysql-config.js") {
     );
 }
 
-async function writeSchema(file, filename = "DB_creation.sql") {
-    await writeConfig(file, filename);
-}
 
 module.exports = {
     writeConfig,
-    writeSchema
 };
