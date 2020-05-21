@@ -1,5 +1,7 @@
 *.sublime-workspace
 *.sublime-project
 globalConfig.json
+package-lock.json
+yarn.lock
 node_modules/
 coverage
