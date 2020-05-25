@@ -1,6 +1,6 @@
 {
   "name": "jest-mysql",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "User friendly preset configuration for Jest & MySQL setup",
   "scripts": {
     "test": "jest --detectOpenHandles --forceExit"
