@@ -15,6 +15,7 @@ beforeAll(async () => {
         databaseOptions: databaseOptionsFromConfig
     } = require("../../jest-mysql-config");
     databaseOptions = databaseOptionsFromConfig;
+    //eslint-disable-next-line
     const { database, ...options } = databaseOptions;
     global.db = mysql.createConnection(options);
     globalSetup = require("../../setup");
