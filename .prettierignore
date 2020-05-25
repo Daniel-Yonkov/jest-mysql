@@ -1,0 +1,7 @@
+package-lock.json
+package.json
+*.md
+jest-mysql.sublime*
+coverage/
+.github/
+.prettierrc

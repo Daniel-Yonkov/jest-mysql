@@ -1,9 +1,7 @@
-const mysql = require("mysql");
 const { resolve } = require("path");
 const { writeConfig } = require("../../tests/fixtures/configWriter");
 const { query } = require("../../helpers/mysql");
 let globalSetup;
-let databaseOptions = {};
 
 //Tests the creation of database strucutre based on predefined SQL dump.
 
@@ -18,7 +16,8 @@ it("Should have two tables created", async () => {
     await globalSetup();
     const { results } = await query("SHOW TABLES");
 
-    tables = [];
+    let tables = [];
+    //eslint-disable-next-line
     for (let [databaseKey, tableName] of Object.entries(results[0])) {
         tables.push(tableName);
     }

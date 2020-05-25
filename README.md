@@ -1,4 +1,4 @@
-# jest-mysql ![](https://github.com/Daniel-Yonkov/jest-mysql/workflows/Build/badge.svg)
+# jest-mysql ![](https://github.com/Daniel-Yonkov/jest-mysql/workflows/Build/badge.svg) [![codecov](https://codecov.io/gh/Daniel-Yonkov/jest-mysql/branch/master/graph/badge.svg)](https://codecov.io/gh/Daniel-Yonkov/jest-mysql)
 
 > Jest preset for easier setup of MySQL storage.
 
