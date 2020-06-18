@@ -1,10 +1,17 @@
 const mysql = require("mysql");
 const Environment = require("../../environment");
+const { writeObjectConfig } = require("../../tests/fixtures/configWriter");
+
 jest.mock("mysql");
 
 let env, connectMethod, endMethod;
 
-beforeAll(() => {
+beforeAll(async () => {
+    //create global config file, simulating setup run
+    const globalConfig = require("../../tests/configs/default.js");
+    await writeObjectConfig(globalConfig);
+    jest.resetModules();
+
     mysql.createConnection.mockImplementation(() => {
         connectMethod = jest.fn();
         endMethod = jest.fn().mockImplementation(callback => {
