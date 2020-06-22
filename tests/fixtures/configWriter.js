@@ -12,7 +12,12 @@ async function writeObjectConfig(object = {}, filename = "globalConfig.json") {
     );
 }
 
+async function removeConfig(filePath) {
+    await fs.promises.unlink(filePath);
+}
+
 module.exports = {
     writeConfig,
-    writeObjectConfig
+    writeObjectConfig,
+    removeConfig
 };
