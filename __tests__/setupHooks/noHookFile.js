@@ -26,3 +26,10 @@ it("Should have no available hooks as file is missing", async () => {
 
     expect(debug.log.mock.calls[1][0]).toMatch(/Unable to load setup hooks/);
 });
+
+afterAll(async () => {
+    await writeConfig(
+        resolve(__dirname, "../../tests/configs/setupHooks.js"),
+        "setupHooks.js"
+    );
+});
