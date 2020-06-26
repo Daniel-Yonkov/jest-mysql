@@ -1,5 +1,10 @@
-const { loadSetupHooks } = require("../../../hooksLoadout");
 let debug = require("debug");
+const { resolve } = require("path");
+const { loadSetupHooks } = require("../../hooksLoadout");
+const {
+    removeConfig,
+    writeConfig
+} = require("../../tests/fixtures/configWriter");
 
 jest.mock("debug", () => {
     let originalModule = jest.requireActual("debug");
@@ -8,6 +13,11 @@ jest.mock("debug", () => {
 });
 
 debug.enable("jest-mysql:hooksLoadout");
+const filePath = resolve(__dirname, "../../setupHooks.js");
+
+beforeAll(async () => {
+    await removeConfig(filePath);
+});
 
 it("Should have no available hooks as file is missing", async () => {
     debug.enable("jest-mysql:hooksLoadout");
