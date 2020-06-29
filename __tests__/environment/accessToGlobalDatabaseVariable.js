@@ -10,7 +10,6 @@ beforeAll(async () => {
     //create global config file, simulating setup run
     const globalConfig = require("../../tests/configs/default.js");
     await writeObjectConfig(globalConfig);
-    jest.resetModules();
 
     mysql.createConnection.mockImplementation(() => {
         connectMethod = jest.fn();
@@ -37,4 +36,24 @@ it("Should destroy global database connection upon teardown", async () => {
     await env.teardown();
 
     expect(endMethod).toHaveBeenCalledTimes(1);
+});
+
+it("Should fail to destroy global database connection throwing an error", async () => {
+    mysql.createConnection.mockImplementation(() => {
+        connectMethod = jest.fn();
+        endMethod = jest.fn().mockImplementation(callback => {
+            callback(new Error("Error ending connection mysql"));
+        });
+
+        return {
+            connect: connectMethod,
+            end: endMethod
+        };
+    });
+    const failingEnv = new Environment({});
+    await failingEnv.setup();
+
+    await expect(failingEnv.teardown()).rejects.toThrow(
+        "Error ending connection mysql"
+    );
 });

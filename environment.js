@@ -40,7 +40,8 @@ module.exports = class MysqlEnvironment extends NodeEnvironment {
         });
         await super.teardown();
     }
-
+    
+    /* istanbul ignore next */
     runScript(script) {
         return super.runScript(script);
     }
