@@ -18,7 +18,29 @@ beforeAll(async () => {
     );
 });
 
+afterEach(() => {
+    debug.log.mockClear();
+});
+
 it("Should load setup hooks", async () => {
     await loadSetupHooks();
     expect(debug.log.mock.calls[1][0]).toMatch(/Imported setup hooks/);
+});
+
+it("Should fail to load not async/promise based methods", async () => {
+    jest.mock("../../setupHooks", () => {
+        return {
+            postSetup: () => {}
+        };
+    });
+
+    await loadSetupHooks();
+
+    expect(debug.log.mock.calls[1][0]).toMatch(/Unable to load setup hooks/);
+
+    //restore origianl config implementation
+    jest.mock("../../setupHooks", () => {
+        let setupHooks = jest.requireActual("../../setupHooks");
+        return setupHooks;
+    });
 });
