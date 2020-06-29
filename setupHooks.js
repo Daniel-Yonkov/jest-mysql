@@ -3,11 +3,8 @@ async function postSetup() {
 }
 
 function mockAsyncFunction() {
-    return new Promise((resolve, reject) => {
-        resolve();
-    });
+    return Promise.resolve();
 }
-
 module.exports = {
     postSetup
 };

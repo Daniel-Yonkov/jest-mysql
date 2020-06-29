@@ -1,5 +1,4 @@
 const teardown = require("../../teardown");
-const { resolve } = require("path");
 const { writeObjectConfig } = require("../../tests/fixtures/configWriter");
 
 //Tests the teardown method with default configuration

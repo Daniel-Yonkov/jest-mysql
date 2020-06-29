@@ -9,7 +9,6 @@ jest.mock("debug", () => {
     return originalModule;
 });
 
-const filePath = resolve(__dirname, "../../setupHooks.js");
 debug.enable("jest-mysql:hooksLoadout");
 
 beforeAll(async () => {
