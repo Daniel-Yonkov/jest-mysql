@@ -8,7 +8,7 @@ const {
     importCreationScript,
     useDatabase
 } = require("./databaseSetup");
-const defaultOptions = require("./jest-mysql-config");
+const defaultOptions = require("./default-config");
 const { loadSetupHooks } = require("./hooksLoadout");
 
 const globalConfigPath = join(__dirname, "globalConfig.json");
