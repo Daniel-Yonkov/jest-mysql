@@ -14,7 +14,3 @@ it("Should throw error if mysql query returns an error", async () => {
     });
     await expect(query("Select 1")).rejects.toThrow("mysql error");
 });
-
-module.exports = {
-    query
-};
