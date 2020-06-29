@@ -36,6 +36,19 @@ it("Should create database if none exists", async () => {
     expect(postSetupResults).toHaveLength(1);
 });
 
+it("Should fail due to invalid schema location on disk", async () => {
+    jest.mock("../../jest-mysql-config.js", () => {
+        const config = jest.requireActual("../../jest-mysql-config.js");
+        return {
+            ...config,
+            dbSchema: "non/existing/file.location"
+        };
+    });
+    await expect(globalSetup()).rejects.toThrow(
+        /Unable to find schema location. please check path/
+    );
+});
+
 afterAll(() => {
     global.db.destroy();
 });

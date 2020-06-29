@@ -1,15 +1,10 @@
 const teardown = require("../../teardown");
-const { resolve } = require("path");
-const { writeConfig } = require("../../tests/fixtures/configWriter");
 
-//Tests the teardown method with default configuration
-
-beforeAll(async () => {
-    await writeConfig(
-        resolve(__dirname, "../../tests/configs/default.js"),
-        "globalConfig.json"
-    );
+jest.mock("../../globalConfig", () => {
+    const globalConfig = require("../../tests/configs/default.js");
+    return globalConfig;
 });
+
 it("Should disconnect database connection", async () => {
     //mysql mocked method method
     let endMethod = jest.fn().mockImplementation(callback => {
@@ -22,4 +17,19 @@ it("Should disconnect database connection", async () => {
 
     await teardown();
     expect(endMethod).toHaveBeenCalledTimes(1);
+});
+
+it("Should throw if fail to disconnect database connection", async () => {
+    //mysql mocked method method
+    let endMethod = jest.fn().mockImplementation(callback => {
+        callback(new Error("Unable to close mysql connection error"));
+    });
+
+    global.db = {
+        end: endMethod
+    };
+
+    await expect(teardown()).rejects.toThrow(
+        "Unable to close mysql connection error"
+    );
 });

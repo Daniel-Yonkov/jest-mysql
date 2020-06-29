@@ -1,6 +1,5 @@
 const fs = require("fs");
 const { resolve, join } = require("path");
-const util = require("util");
 const mysql = require("mysql");
 const cwd = require("cwd");
 const debug = require("debug")("jest-mysql:setup");
@@ -9,7 +8,8 @@ const {
     importCreationScript,
     useDatabase
 } = require("./databaseSetup");
-const defaultOptions = require("./jest-mysql-config");
+const defaultOptions = require("./default-config");
+const { loadSetupHooks } = require("./hooksLoadout");
 
 const globalConfigPath = join(__dirname, "globalConfig.json");
 
@@ -65,24 +65,5 @@ function getTestingMysqlDatabaseOptions() {
         return databaseOptions;
     } catch {
         throw new Error("Unable to find and import testing database config");
-    }
-}
-
-async function loadSetupHooks() {
-    debug("Checking for user defined setup hooks...");
-    try {
-        const setupHooks = require(resolve(cwd(), "setupHooks"));
-        if (Object.keys(setupHooks).length > 0) {
-            for (let action in setupHooks) {
-                if (util.types.isAsyncFunction(setupHooks[action])) {
-                    await setupHooks[action]();
-                }
-                debug("Imported setup hooks");
-                return;
-            }
-        }
-        debug("No setup hooks provided");
-    } catch {
-        debug("Unable to load setup hooks");
     }
 }

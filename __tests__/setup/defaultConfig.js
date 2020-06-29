@@ -1,6 +1,9 @@
 const mysql = require("mysql");
 const { resolve } = require("path");
-const { writeConfig } = require("../../tests/fixtures/configWriter");
+const {
+    writeConfig,
+    removeConfig
+} = require("../../tests/fixtures/configWriter");
 const { query } = require("../../helpers/mysql");
 let globalSetup;
 let databaseOptions = {};
@@ -26,6 +29,18 @@ it("Should trigger error if database does not exists", async () => {
     );
     expect(preSetupResults).toHaveLength(0);
     expect(globalSetup()).rejects.toThrowError("Unable to connect to database");
+});
+
+it("Should fail if no config file is provided", async () => {
+    jest.resetModules();
+    globalSetup = require("../../setup");
+
+    //removes the current config
+    await removeConfig("jest-mysql-config.js");
+
+    await expect(globalSetup()).rejects.toThrow(
+        "Unable to find and import testing database config"
+    );
 });
 
 afterAll(() => {

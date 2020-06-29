@@ -7,13 +7,13 @@ async function createDatabaseIfNoneExisiting(databaseName) {
     debug("Checking database exists");
     const databaseExist = await searchForDatabase(databaseName);
 
-    if (databaseExist === false) {
-        debug("Creating database");
-        await createTestingDatabase(databaseName);
-        debug("Databasea created");
+    if (databaseExist === true) {
+        debug("Database exists, omiting creation");
         return;
     }
-    debug("Database exists, omiting creation");
+    debug("Creating database");
+    await createTestingDatabase(databaseName);
+    debug("Databasea created");
 }
 async function searchForDatabase(databaseName) {
     const { results } = await query(`SHOW DATABASES LIKE "${databaseName}";`);
