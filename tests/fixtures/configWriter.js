@@ -12,7 +12,7 @@ async function writeConfig(file, filename = "jest-mysql-config.js") {
     }
 }
 
-async function writeObjectConfig(object = {}, filename = "globalConfig.json") {
+async function writeObjectConfig(object, filename = "globalConfig.json") {
     await fs.promises.writeFile(
         resolve(__dirname, `../../${filename}`),
         JSON.stringify(object)
@@ -21,7 +21,6 @@ async function writeObjectConfig(object = {}, filename = "globalConfig.json") {
 
 async function removeConfig(filePath) {
     try {
-        fs.accessSync(filePath);
         await fs.promises.unlink(filePath);
     } catch (e) {
         return;
