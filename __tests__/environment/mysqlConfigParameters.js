@@ -17,7 +17,6 @@ beforeAll(async () => {
 
 
 it("Check DB config using Host & User only ", async () => {
-    const globalConfig = require("../../tests/configs/default.js");
     const dummyMysqlConfig = {
         host: "127.0.0.1",
         user: "root",
@@ -30,7 +29,6 @@ it("Check DB config using Host & User only ", async () => {
 });
 
 it("Check DB config using Port ", async () => {
-    const globalConfig = require("../../tests/configs/default.js");
     const dummyMysqlConfig = {
         host: "127.0.0.1",
         port: 3306,
@@ -45,7 +43,6 @@ it("Check DB config using Port ", async () => {
 
 
 it("Check DB config using password ", async () => {
-    const globalConfig = require("../../tests/configs/default.js");
     const dummyMysqlConfig = {
         host: "127.0.0.1",
         user: "root",
@@ -60,7 +57,6 @@ it("Check DB config using password ", async () => {
 
 
 it("Check DB config using database parameter ", async () => {
-    const globalConfig = require("../../tests/configs/default.js");
     const dummyMysqlConfig = {
         host: "127.0.0.1",
         user: "root",
@@ -75,7 +71,6 @@ it("Check DB config using database parameter ", async () => {
 
 
 it("Check seven part config ", async () => {
-    const globalConfig = require("../../tests/configs/default.js");
     const dummyMysqlConfig = {
         host: "127.0.0.1",
         port: 3306,
