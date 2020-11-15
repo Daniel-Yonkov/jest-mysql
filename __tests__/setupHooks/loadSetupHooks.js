@@ -28,7 +28,7 @@ it("Should load setup hooks", async () => {
 });
 
 it("Should fail to load not async/promise based methods", async () => {
-    jest.mock("../../setupHooks", () => {
+    jest.doMock("../../setupHooks", () => {
         return {
             postSetup: () => {}
         };
