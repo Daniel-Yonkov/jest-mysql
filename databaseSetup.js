@@ -37,6 +37,9 @@ function importCreationScript(mysqlConfig, creationScriptPath) {
         if ("password" in mysqlConfig && mysqlConfig.password.length > 0) {
             params.push(`-p${mysqlConfig.password}`);
         }
+        if ("port" in mysqlConfig ) {
+            params.push(`-P ${mysqlConfig.port}`);
+        }
         //sql import to database: database_name < creation_script_path
         params.push(mysqlConfig.database);
         params.push(`< ${creationScriptPath}`);

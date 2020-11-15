@@ -30,7 +30,7 @@
     "debug": "^4.2.0"
   },
   "peerDependencies": {
-    "jest": "25.x.x",
+    "jest": "26.x.x",
     "mysql": "2.x.x"
   },
   "devDependencies": {
