@@ -31,18 +31,6 @@ it("Should trigger error if database does not exists", async () => {
     expect(globalSetup()).rejects.toThrowError("Unable to connect to database");
 });
 
-it("Should fail if no config file is provided", async () => {
-    jest.resetModules();
-    globalSetup = require("../../setup");
-
-    //removes the current config
-    await removeConfig("jest-mysql-config.js");
-
-    await expect(globalSetup()).rejects.toThrow(
-        "Unable to find and import testing database config"
-    );
-});
-
 afterAll(() => {
     global.db.destroy();
 });
