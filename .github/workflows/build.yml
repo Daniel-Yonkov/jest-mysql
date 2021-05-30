@@ -7,7 +7,7 @@ on:
   push:
     branches: [ master ]
   pull_request:
-    branches: [ master, release/* ]
+    types: [opened, synchronize, reopened, closed]
 
 jobs:
   build:
@@ -16,18 +16,25 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 13.x]
+        node-version: [10.x, 12.x, 14.x, 16.x]
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: jest_mysql_test
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2.1.4
+      uses: actions/setup-node@v2.1.5
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: "Start MySQL server"
-      run: sudo service mysql start
-    
     - name: Clean install dependencies and build
       run: |
         npm i --package-lock-only
@@ -36,6 +43,8 @@ jobs:
     
     - name: Run tests
       run: npm test
+      env:
+        DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
     - name: Collect code coverage
       uses: codecov/codecov-action@v1
