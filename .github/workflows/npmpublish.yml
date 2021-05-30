@@ -5,7 +5,7 @@ name: "Package publishing"
 
 on:
   release:
-    types: [created]
+    types: [created, edited]
 
 jobs:
   build:
