@@ -1,6 +1,6 @@
 {
   "name": "jest-mysql",
-  "version": "1.1.6",
+  "version": "1.1.8",
   "description": "User friendly preset configuration for Jest & MySQL setup",
   "scripts": {
     "test": "jest --forceExit"
