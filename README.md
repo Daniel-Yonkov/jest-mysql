@@ -35,7 +35,7 @@ You could choose one of the following methods, for further reference checkout th
         "preset": "jest-mysql",
         //any other jest configurations
     },
-    //rest of packange.json configuration
+    //rest of package.json configuration
 }
 ```
 
