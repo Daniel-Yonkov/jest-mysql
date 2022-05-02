@@ -37,7 +37,7 @@
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "eslint": "^8.0.1",
-    "jest": "^27.0.3",
+    "jest": "^28.0.3",
     "mysql": "^2.18.1",
     "prettier": "^2.1.2"
   }
