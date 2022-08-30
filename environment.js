@@ -1,14 +1,14 @@
 const mysql = require("mysql");
-const NodeEnvironment = require("jest-environment-node");
+const NodeEnvironment = require("jest-environment-node").default;
 const path = require("path");
 const fs = require("fs");
 const mysqlConfig = path.join(__dirname, "globalConfig.json");
 
 const debug = require("debug")("jest-mysql:environment");
 
-module.exports = class MysqlEnvironment extends NodeEnvironment {
-    constructor(config) {
-        super(config);
+class MysqlEnvironment extends NodeEnvironment {
+    constructor(config, context) {
+        super(config, context);
     }
 
     //we setup the environment for the tests.
@@ -40,9 +40,11 @@ module.exports = class MysqlEnvironment extends NodeEnvironment {
         });
         await super.teardown();
     }
-    
+
     /* istanbul ignore next */
     runScript(script) {
         return super.runScript(script);
     }
 };
+
+module.exports = MysqlEnvironment

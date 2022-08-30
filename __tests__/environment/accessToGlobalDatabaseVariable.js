@@ -22,7 +22,14 @@ beforeAll(async () => {
             end: endMethod
         };
     });
-    env = new Environment({});
+    env = new Environment(
+        {
+            projectConfig: {
+                testEnvironmentOptions: {}
+            }
+        },
+        {}
+    );
 });
 
 it("Should create global variable with the database connection", async () => {
@@ -50,7 +57,14 @@ it("Should fail to destroy global database connection throwing an error", async 
             end: endMethod
         };
     });
-    const failingEnv = new Environment({});
+    const failingEnv = new Environment(
+        {
+            projectConfig: {
+                testEnvironmentOptions: {}
+            }
+        },
+        {}
+    );
     await failingEnv.setup();
 
     await expect(failingEnv.teardown()).rejects.toThrow(
