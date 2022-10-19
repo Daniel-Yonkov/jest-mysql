@@ -8,10 +8,10 @@ jest.mock("fs");
 
 fs.promises = {
     copyFile: jest.fn().mockImplementation(() => {
-        Promise.rejects("Copy file error");
+        return Promise.reject("Copy file error");
     }),
     unlink: jest.fn().mockImplementation(() => {
-        Promise.rejects("Remove file error");
+        return Promise.reject("Remove file error");
     })
 };
 
@@ -23,5 +23,5 @@ it("Should throw error if copy config file fails", async () => {
 
 it("Should not throw if file to be removed does not exist", async () => {
     const result = await removeConfig("./some/non/existing/file.js");
-     expect(result).toBeUndefined();
+    expect(result).toBeUndefined();
 });
