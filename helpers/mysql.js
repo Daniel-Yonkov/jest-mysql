@@ -1,8 +1,8 @@
 function query(string) {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
         global.db.query(string, (error, results, fields) => {
             if (error) {
-                throw error;
+                reject(error);
             }
             resolve({ results, fields });
         });

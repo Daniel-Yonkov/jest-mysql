@@ -20,7 +20,7 @@
   "bugs": "https://github.com/Daniel-Yonkov/jest-mysql/issues",
   "homepage": "https://github.com/Daniel-Yonkov/jest-mysql#readme",
   "engines": {
-    "node": ">= 10.0.0"
+    "node": ">= 14.15.0"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
@@ -31,13 +31,13 @@
     "debug": "^4.2.0"
   },
   "peerDependencies": {
-    "jest": "26.x.x",
+    "jest": "29.x.x",
     "mysql": "2.x.x"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "eslint": "^8.0.1",
-    "jest": "^27.0.3",
+    "jest": "^29.0.1",
     "mysql": "^2.18.1",
     "prettier": "^2.1.2"
   }
