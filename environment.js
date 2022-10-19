@@ -45,6 +45,6 @@ class MysqlEnvironment extends NodeEnvironment {
     runScript(script) {
         return super.runScript(script);
     }
-};
+}
 
-module.exports = MysqlEnvironment
+module.exports = MysqlEnvironment;
