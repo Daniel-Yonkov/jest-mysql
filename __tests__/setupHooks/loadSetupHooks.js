@@ -21,7 +21,7 @@ beforeAll(async () => {
 afterEach(() => {
     debug.log.mockClear();
 });
-
+//TODO fix test concurrency and writing issue
 it("Should load setup hooks", async () => {
     await loadSetupHooks();
     expect(debug.log.mock.calls[1][0]).toMatch(/Imported setup hooks/);

@@ -4,7 +4,7 @@
         "sourceType": "script",
         "ecmaFeatures": {}
     },
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "rules": {
         "constructor-super": 2,
         "for-direction": 2,
@@ -65,5 +65,6 @@
         "node": true,
         "jest": true,
         "es6": true
-    }
+    },
+    "extends": ["prettier"]
 }

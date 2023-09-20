@@ -5,3 +5,4 @@ jest-mysql.sublime*
 coverage/
 .github/
 .prettierrc
+globalConfig.json

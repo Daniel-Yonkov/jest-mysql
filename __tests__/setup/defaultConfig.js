@@ -1,9 +1,6 @@
 const mysql = require("mysql");
 const { resolve } = require("path");
-const {
-    writeConfig,
-    removeConfig
-} = require("../../tests/fixtures/configWriter");
+const { writeConfig } = require("../../tests/fixtures/configWriter");
 const { query } = require("../../helpers/mysql");
 let globalSetup;
 let databaseOptions = {};

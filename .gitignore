@@ -1,5 +1,6 @@
 *.sublime-workspace
 *.sublime-project
+.eslintcache
 globalConfig.json
 package-lock.json
 yarn.lock
