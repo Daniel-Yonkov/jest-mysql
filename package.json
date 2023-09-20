@@ -20,7 +20,7 @@
   "bugs": "https://github.com/Daniel-Yonkov/jest-mysql/issues",
   "homepage": "https://github.com/Daniel-Yonkov/jest-mysql#readme",
   "engines": {
-    "node": ">= 14.15.0"
+    "node": ">= 16"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
