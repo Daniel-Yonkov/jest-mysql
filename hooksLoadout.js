@@ -13,12 +13,14 @@ async function loadSetupHooks() {
         }
         await loadHooks(setupHooks);
         debug("Imported setup hooks");
-    } catch {
+    } catch (e) {
+        console.log(e);
         debug("Unable to load setup hooks");
     }
 }
 
 async function loadHooks(hooks) {
+    console.log(hooks);
     for (let action in hooks) {
         if (!util.types.isAsyncFunction(hooks[action])) {
             throw new Error(

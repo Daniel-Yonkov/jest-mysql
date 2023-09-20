@@ -6,7 +6,7 @@ const {
     databaseOptions: { database },
     truncateDatabase
 } = require(join(__dirname, "globalConfig.json"));
-module.exports = async function() {
+module.exports = async function () {
     debug("Teardown Mysql");
 
     //removes foreing key checks in order to allow truncateing
