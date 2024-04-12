@@ -47,7 +47,7 @@ jobs:
         DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
     - name: Collect code coverage
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         file: ./coverage/clover.xml
         flags: unittests
