@@ -23,5 +23,5 @@ it("Should have two tables created", async () => {
 });
 
 afterAll(() => {
-    global.db.destroy();
+    global.db.end();
 });
