@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [16.x, 18.x, 20.x]
 
     services:
       mysql:
@@ -29,9 +29,9 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
 
@@ -47,11 +47,12 @@ jobs:
         DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
     - name: Collect code coverage
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         file: ./coverage/clover.xml
         flags: unittests
         name: library-coverage
+        token: ${{ secrets.CODECOV_TOKEN }}
         fail_ci_if_error: true
 
       env:

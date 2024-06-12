@@ -50,5 +50,5 @@ it("Should fail due to invalid schema location on disk", async () => {
 });
 
 afterAll(() => {
-    global.db.destroy();
+    global.db.end();
 });
