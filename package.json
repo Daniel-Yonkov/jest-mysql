@@ -3,7 +3,7 @@
   "version": "1.1.10",
   "description": "User friendly preset configuration for Jest & MySQL setup",
   "scripts": {
-    "test": "jest --forceExit",
+    "test": "jest --runInBand --forceExit",
     "bump-version": "npm version --commit-hooks=false --git-tag-version=false --force"
   },
   "repository": "Daniel-Yonkov/jest-mysql.git",
@@ -20,7 +20,7 @@
   "bugs": "https://github.com/Daniel-Yonkov/jest-mysql/issues",
   "homepage": "https://github.com/Daniel-Yonkov/jest-mysql#readme",
   "engines": {
-    "node": ">= 14.15.0"
+    "node": ">= 16"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
@@ -35,10 +35,22 @@
     "mysql": "2.x.x"
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
+    "@babel/cli": "^7.22.15",
+    "@babel/core": "^7.24.7",
+    "@babel/eslint-parser": "^7.22.15",
+    "@babel/preset-env": "^7.24.7",
+    "babel-jest": "^29.7.0",
+    "core-js": "^3.32.2",
     "eslint": "^8.0.1",
+    "eslint-config-prettier": "^9.0.0",
+    "husky": "^8.0.3",
     "jest": "^29.0.1",
+    "lint-staged": "^14.0.1",
     "mysql": "^2.18.1",
     "prettier": "^3.0.3"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,json,md}": "prettier --write"
   }
 }

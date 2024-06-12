@@ -5,6 +5,7 @@ function query(string) {
                 reject(error);
             }
             resolve({ results, fields });
+            return;
         });
     });
 }

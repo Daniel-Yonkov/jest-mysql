@@ -40,5 +40,5 @@ it("Should trigger error if database does not exists", async () => {
 });
 
 afterAll(() => {
-    global.db.destroy();
+    global.db.end();
 });

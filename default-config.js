@@ -10,5 +10,5 @@ module.exports = {
     },
     createDatabase: false,
     dbSchema: "",
-    truncateDatabase: false,
+    truncateDatabase: false
 };

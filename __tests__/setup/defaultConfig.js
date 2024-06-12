@@ -1,9 +1,6 @@
 const mysql = require("mysql");
 const { resolve } = require("path");
-const {
-    writeConfig,
-    removeConfig
-} = require("../../tests/fixtures/configWriter");
+const { writeConfig } = require("../../tests/fixtures/configWriter");
 const { query } = require("../../helpers/mysql");
 let globalSetup;
 let databaseOptions = {};
@@ -28,9 +25,11 @@ it("Should trigger error if database does not exists", async () => {
         `SHOW DATABASES LIKE "${databaseOptions.database}"`
     );
     expect(preSetupResults).toHaveLength(0);
-    expect(globalSetup()).rejects.toThrowError("Unable to connect to database");
+    expect(globalSetup()).rejects.toThrowError(
+        "ER_BAD_DB_ERROR: Unknown database 'jest_mysql_test'"
+    );
 });
 
 afterAll(() => {
-    global.db.destroy();
+    global.db.end();
 });

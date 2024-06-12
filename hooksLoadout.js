@@ -13,7 +13,7 @@ async function loadSetupHooks() {
         }
         await loadHooks(setupHooks);
         debug("Imported setup hooks");
-    } catch {
+    } catch (e) {
         debug("Unable to load setup hooks");
     }
 }
