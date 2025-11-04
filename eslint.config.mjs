@@ -1,11 +1,38 @@
-{
-    "parserOptions": {
-        "ecmaVersion": 8,
-        "sourceType": "script",
-        "ecmaFeatures": {}
+import { defineConfig } from "eslint/config";
+import globals from "globals";
+import babelParser from "@babel/eslint-parser";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import js from "@eslint/js";
+import { FlatCompat } from "@eslint/eslintrc";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const compat = new FlatCompat({
+    baseDirectory: __dirname,
+    recommendedConfig: js.configs.recommended,
+    allConfig: js.configs.all
+});
+
+export default defineConfig([{
+    extends: compat.extends("prettier"),
+
+    languageOptions: {
+        globals: {
+            ...globals.node,
+            ...globals.jest,
+        },
+
+        parser: babelParser,
+        ecmaVersion: 8,
+        sourceType: "commonjs",
+
+        parserOptions: {
+            ecmaFeatures: {},
+        },
     },
-    "parser": "@babel/eslint-parser",
-    "rules": {
+
+    rules: {
         "constructor-super": 2,
         "for-direction": 2,
         "getter-return": 2,
@@ -59,12 +86,6 @@
         "no-with": 2,
         "require-yield": 2,
         "use-isnan": 2,
-        "valid-typeof": 2
+        "valid-typeof": 2,
     },
-    "env": {
-        "node": true,
-        "jest": true,
-        "es6": true
-    },
-    "extends": ["prettier"]
-}
+}]);
