@@ -25,7 +25,7 @@ export default defineConfig([{
 
         parser: babelParser,
         ecmaVersion: 8,
-        sourceType: "commonjs",
+        sourceType: "script",
 
         parserOptions: {
             ecmaFeatures: {},
