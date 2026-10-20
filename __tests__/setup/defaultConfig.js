@@ -25,9 +25,7 @@ it("Should trigger error if database does not exists", async () => {
         `SHOW DATABASES LIKE "${databaseOptions.database}"`
     );
     expect(preSetupResults).toHaveLength(0);
-    expect(globalSetup()).rejects.toThrowError(
-        "ER_BAD_DB_ERROR: Unknown database 'jest_mysql_test'"
-    );
+    expect(globalSetup()).rejects.toThrow("ER_BAD_DB_ERROR: Unknown database 'jest_mysql_test'");
 });
 
 afterAll(() => {
